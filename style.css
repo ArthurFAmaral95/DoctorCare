@@ -1,0 +1,986 @@
+/* ===== GERAL============================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* não é recomendado deixarmos tamanhos de fonte fixos (em pixel, por exemplo) porque não sabemos o tamanho da tela do usuário.
+ideal é usar medidas relativas (em ou rem).
+
+para mudar a fonte padrão do navegador usamos o root*/
+:root {
+  font-size: 62.5%; /*padrão do navegador é 16px. então agora estamos colocando 62,5% desse valor, ou seja, 10 pixels. Agora 1 rem = 10 px*/
+
+  /*maneira rápida de trocar cores caso seja necessário.
+  fazemos uma variável para colocar dentro das variáveis de cor*/
+  --hue: 170;
+
+  /* variável no CSS. colocamos essa variável no root do arquivo para quando quiser aplicar para os elementos é só chamar essa variável. 
+  se ateramos a cor aqui, ela será alterada em todos os elementso que estiverem vinculados com essa variável*/
+  --primary-green: hsl(
+    var(--hue),
+    100%,
+    26%
+  ); /*colei a cor em hexadecimal como estava no Figma. Se deixar o cursor em cima do código podemos muda-la para hsl ao clicar no valor hexadecimal do código que aparece no topo do quadro*/
+  --primary-beige: hsl(39, 100%, 97%);
+  --primary-green-light: hsl(var(--hue), 23%, 89%);
+  --headline-color: hsl(210, 11%, 15%);
+  --paragraph-color: hsl(210, 9%, 31%);
+  --bg-green-light: hsl(calc(var(--hue) + 10), 14%, 97%);
+  --green-hover: hsl(var(--hue), 100%, 14%);
+  --green-ligth-2: hsl(calc(var(--hue) + 10), 14%, 97%);
+
+  --nav-height: 7.2rem;
+}
+
+/*colocando a rolagem suave*/
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* fonte DM Sans é aplicada em todo o documento por isso usamos o seletor body*/
+body {
+  font-family: 'DM Sans';
+  font-size: 1.6rem; /*voltamos o tamanho do texto para 16px*/
+  text-align: center; /*alinhando todo o texto ao centro da página*/
+  overflow: overlay;
+  background-color: var(--bg-green-light);
+}
+
+.wrapper {
+  /*width: 37.5rem; limitamos a largura da página. fizemos assim inicalmente, mas vamos mudar para a largura se ajustar de acordo com a largura da tela do dispositivo.*/
+  width: min(
+    50rem,
+    100%
+  ); /*isso quer dizer que até 50rem a tela vai crescer e depois vai ficar no tamanho máximo de 50*/
+  /*para centralizar o conteúdo colomamos margem na direita e na esquerna no auto para elas se ajustarem automaticamente.*/
+  margin-inline: auto;
+  padding-inline: 2.4rem;
+}
+
+ul {
+  list-style: none;
+}
+
+section {
+  padding-block: 10rem;
+}
+
+/*caso estivermos usando uma imagem muito grande que cause overflow (transbordamento - imagem maior do que os limites da caixa que a contem), podemos fazer a configuração abaixo para fazermos com que ela seja 100% do tamanho da caixa, ou seja, caiba dentro da caixa sem sair pra fora*/
+
+img {
+  max-width: 100%;
+}
+
+section header h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
+  color: var(--primary-green);
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+section header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+  color: var(--headline-color);
+}
+
+section header h1 {
+  font-size: 3.4rem;
+  color: var(--headline-color);
+  line-height: 130%;
+  margin-bottom: 2.4rem;
+}
+
+section .content p {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: var(--paragraph-color);
+}
+
+.button {
+  background: var(--primary-green);
+  border: none;
+  border-radius: 4rem;
+
+  /*tag de botão e de imagem (que está dentro do botão) tem tipo de display inline (ficam lado a lado). usamos o display block para um ficar em cima da outra*/
+  /*display: block;*/ /*não foi preciso o display block porque a margem ficou tão pequena que uma caixa já ficou abaixo da outra*/
+  margin-bottom: 6rem;
+
+  /*mayk normalmente não limite o tamanho do botão.
+  normalmente ele usa o preenchimento dentro dele para fazer o dimensionamento
+  e o fit content para não ficar muito alongado
+  height: 5.2rem;
+  width: 26.3rem;*/
+  padding: 1.6rem 3.2rem;
+  width: fit-content;
+
+  color: hsl(0, 0%, 100%);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem; /*espaço entre o icone e o texto*/
+
+  transition: background 200ms; /*tempo de transição quando colcarmos o cursor sobre o botão*/
+}
+
+/*fazendo o efeito de colocar o verde mais escuro quando colocarmo o mouse sobre o botão*/
+
+.button:hover {
+  background-color: var(--green-hover);
+}
+
+/* ====== #COLORS ===========================================*/
+
+/*cor dos icones dentro dos cards*/
+#services .card circle {
+  fill: var(--primary-green-light);
+}
+
+#navigation .colorlogo path[fill*="#00856F"],/*dentro do navigation, classe colorlogo, procurar dentro do svg o atibuto fill que comece com a cor que queremos - precisa do *. */
+#backToTopButton circle {
+  fill: var(--primary-green);
+}
+
+/*depois temos que voltar a cor para branco durante o scroll*/
+#navigation.scroll .colorlogo path,
+body.menu-expanded #navigation .colorlogo path {
+  fill: white;
+}
+button.open-menu path[stroke*='#00856F'],
+#contact li path {
+  stroke: var(--primary-green);
+}
+
+#navigation.scroll button.open-menu path[stroke*='#00856F'] {
+  stroke: white;
+}
+
+/* ====== #HOME ===========================================*/
+
+#home {
+  padding-block: 0;
+  /*margin-top: 4.1rem;*/
+  padding-top: calc(4.1rem + var(--nav-height));
+  /*background-color: var(--primary-green-light); configuração de cor de fundo será refeita abaixo para que ocupe toda a largura da tela e vá até o meio da caixa com os dados*/
+}
+
+/* inserindo uma tag html dentro do css.
+colcamos o nome da tag que temos dentro do html e usamos o before para falar que ela vai ficar antes do conteúdo da tag header. depois colocamos o conteúdo dessa nova tag e suas configurações.*/
+#home::before {
+  content: '';
+  width: 100%;
+  height: calc(77% + var(--nav-height));
+  background-color: var(--primary-green-light);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* tag h4 já é em negrito, então não precisamos ficar configurando o que já está configurado (font weight
+#home h4 {
+  font-size: 1.4rem; de acordo com o Figma, essa tag tem 14px. como mudamos o padrão do navegador para 10px, 14px são 140% do root ou 1.4rem
+  color: var(--primary-green);
+  margin-bottom: 1.6rem;
+} já colocamos no geral*/
+
+/*colocamos essa configuração no geral
+#home h1 {
+  font-size: 3.4rem;
+  color: var(--headline-color);
+  line-height: 130%;
+  margin-bottom: 2.4rem;
+}*/
+
+#home p {
+  font-size: 1.8rem;
+  line-height: 150%;
+  font-weight: 400;
+  color: var(--paragraph-color);
+  margin-bottom: 3.2rem;
+}
+
+/*
+#home button {
+  background: var(--primary-green);
+  border: none;
+  border-radius: 4rem;
+
+  /*tag de botão e de imagem (que está dentro do botão) tem tipo de display inline (ficam lado a lado). usamos o display block para um ficar em cima da outra*/
+/*display: block;*/ /*não foi preciso o display block porque a margem ficou tão pequena que uma caixa já ficou abaixo da outra
+  margin-bottom: 6rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 5.2rem;
+  width: 26.3rem;
+
+  color: hsl(0, 0%, 100%);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem; /*espaço entre o icone e o texto
+}*/
+
+#home .button {
+  margin-inline: auto;
+}
+
+#home button svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+#home img {
+  width: 26.4rem;
+  display: block; /*display block para posicionar a imagem*/
+  margin-inline: auto;
+  object-position: 0 2rem; /* primeiro valor movimenta nas laterais e segundo na vertical. usado para colar a imagem na caixa de baixo*/
+}
+
+/*
+header img {
+  margin-bottom: -2rem;
+}
+*/
+
+#home .stats {
+  /*width: 32.7rem; substituimos por 100% para se ajustar ao tamanho da tela*/
+  width: 100%;
+  /*height: 47rem; substituí essa linha pelo padding block para colocar o distanciamento igual está no Figma*/
+  margin-inline: auto; /*podemos ubstituir as duas linhas de margin left e right por apenas essa de margin in line*/
+  padding-block: 4rem; /*coloca o preenchimento em cima e em baixo*/
+  background: var(
+    --primary-beige
+  ); /*podemos usar apenas o background pra usar o short e colocar todas as características do background*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rem; /*espaçamento entre cada caixa filha*/
+  border-radius: 0.6rem;
+  border: solid 0.1rem --primary-green-light;
+}
+
+#home .stat p {
+  margin: 0;
+  color: var(--primary-green);
+  font-size: 1.6rem;
+  line-height: 150%;
+}
+
+#home .stat h3 {
+  font-size: 4.8rem;
+  color: var(--headline-color);
+  line-height: 130%;
+  margin-bottom: 0.4rem;
+}
+
+/*
+.container {
+  width: 32.7rem;
+  height: 47rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--primary-beige);
+  padding-top: 4rem;
+}
+
+.pacientes {
+  width: 16.7rem;
+  height: 9rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.especialistas {
+  width: 18.3rem;
+  height: 9rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6rem;
+}
+
+.anos {
+  width: 13.1rem;
+  height: 9rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6rem;
+}
+
+.pacientes h3 {
+  font-weight: 700;
+  color: var(--headline-color);
+  font-size: 4.8rem;
+  justify-content: center;
+  height: 6.2rem;
+}
+
+.pacientes p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--primary-green);
+  margin-top: 0.4rem;
+  height: 2.4rem;
+}
+
+.especialistas h3 {
+  font-weight: 700;
+  color: var(--headline-color);
+  font-size: 4.8rem;
+  justify-content: center;
+  height: 6.2rem;
+  width: 7.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.especialistas p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--primary-green);
+  margin-top: 0.4rem;
+  height: 2.4rem;
+}
+
+.anos h3 {
+  font-weight: 700;
+  color: var(--headline-color);
+  font-size: 4.8rem;
+  justify-content: center;
+  height: 6.2rem;
+  width: 8rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.anos p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--primary-green);
+  margin-top: 0.4rem;
+  height: 2.4rem;
+}
+*/
+
+/* ====== NAVIGATION ===========================================*/
+
+nav {
+  display: flex;
+
+  /*
+  padding-inline: 2.4rem;
+  padding-block: 1.6rem;
+  ou
+  padding: 1.6rem 2.4rem;*/
+
+  height: var(--nav-height);
+
+  position: fixed; /* para fixar quando rolar a página, porém tira algumas propriedades de posicionamento*/
+  top: 0;
+  /*left: 50%; colcamos 50% da tela na esquerda
+  transform: translateX(
+    -50%
+  ); trouxemos o elemento de volta até o centro da página*/
+  z-index: 100;
+  width: 100vw;
+}
+
+nav .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav.scroll {
+  background: var(--primary-green);
+}
+
+/*  NÃO PRECISAMOS MAIS DEPOIS QUE FIZEMOS A MESMA CONFIGURAÇÃO NA SESSÃO DE CORES 
+mudando a cor do logo para branco
+como é um arquivo svg podemos alterar a cor
+colocamos todo o caminho de onde está a cor:
+  nav.scroll -> dentro do nav  de classe scroll
+  svg:nth-child() -> podemos ter mais de uma tag svg, então temos que especificar qual é. fazemos isso dentro do parenteses
+  path -> tags dentro do svg
+  fill -> atributo onde está a cor
+nav.scroll .colorlogo path {
+  fill: white;
+}
+
+/*no segundo svg a cor está no atributo stroke
+nav.scroll button path {
+  stroke: white;
+}*/
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer; /*mãozinha para quando o cursor estiver em cima*/
+}
+
+nav .menu,
+nav .close-menu {
+  position: fixed;
+}
+
+/* ====== MENU-EXPANDED ===========================================*/
+
+body.menu-expanded {
+  overflow: hidden; /*tirar a barra de rolagem e a capacidade de rolar a tela*/
+}
+
+/*temos que sumir com todos os outros botões e links das outras camadas quando estivermos com o menu aberto
+para isso usamos o display: none.
+porem ainda queremos que o menu que está dentro da tag nav apareça.
+quando fazemos: body.menu-expanded > *{} aplicamos as configurações para todos os filhos de primeira classe do body com classe menu-expanded (nav, header,...). porém não queremos que elas sejam aplicadas para a tag nav.
+para isso vamos usar a pseudo class not e especificar qual tag não entrará nas configurações.
+
+body.menu-expanded > :not(nav) {
+  display: none;
+}
+porém não é o ideal fazer isso
+*/
+
+/*vamos usar o display hidden*/
+body.menu-expanded > :not(nav) {
+  display: hidden;
+}
+
+.menu,
+.close-menu,
+body.menu-expanded .open-menu {
+  opacity: 0; /*deixou os links opacos*/
+  visibility: hidden; /*não conseguimos mais clicar nos links*/
+}
+
+/*quando o body estiver com a classe menu-expanded (JS para isso) o CSS vai aplicar essas configurações para as duas classes (.menu e .close-menu). 
+quando o menu não estiver expandido, elas ficaram invisíveis*/
+body.menu-expanded .menu,
+body.menu-expanded .close-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*deslocando o menu 100% da tela para baixo para fazer a transição*/
+.menu {
+  transform: translateY(100%);
+}
+
+body.menu-expanded .menu {
+  /*position: fixed;*/
+  top: 0;
+  left: 0;
+  background: var(--primary-green);
+
+  width: 100vw;
+  height: 100vh;
+
+  padding-top: var(--nav-height);
+
+  /*alterando a trensição da tela inicial para o menu
+  escolhendo a maneira que será feita a transição e trazendo a tela de volta para a posição inicial*/
+  transition: transform 300ms;
+  transform: translateY(0);
+}
+
+/*body.menu-expanded nav {
+  position: relative; tirou o posicionamento fixo do nav. antes estava colado na borda
+}
+tiramos para arrumar as logos na navegação que não estava aparecendo*/
+
+.menu ul:nth-child(1) {
+  display: flex; /*posiçoes flexiveis*/
+  flex-direction: column;
+  gap: 4.8rem;
+  margin-top: 6rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.1rem;
+}
+
+/*colocar a cor e a decoração em cima não funciano já que ele está dentro da tag a*/
+.menu ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu .button {
+  background: white;
+  border-radius: 4rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--primary-green);
+  display: inline-block; /*fez a quebra de linha*/
+  padding: 1.6rem 3.2rem;
+  margin-top: 4.8rem;
+  margin-bottom: 8rem;
+}
+
+.menu .button:hover {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  gap: 3.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/*menu superior está em uma camada abaixo do resto do menu de navegação.
+temos que trazer para cima usando o position relative o o z-index.
+depois temos que trocar a cor para branco.
+mas queremos que isso aconteça somente quando o menu estiver expandido*/
+
+body.menu-expanded .colorlogo,
+body.menu-expanded button {
+  position: relative;
+  z-index: 100;
+}
+body.menu-expanded .colorlogo path {
+  fill: white;
+}
+
+body.menu-expanded button path {
+  stroke: white;
+}
+
+/* ====== SERVICES ===========================================*/
+/* já colocamos no geral
+#services header h4 {
+  font-size: 1.4rem;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  color: var(--primary-green);
+  margin-bottom: 1.6rem;
+}
+
+#services header h2 {
+  font-size: 3rem;
+  line-height: 3.9rem;
+  color: var(--headline-color);
+  margin-bottom: 6rem; margin botton é só pra essa parte então vamos colocar abaixo
+}*/
+
+#services header h2 {
+  margin-bottom: 6rem;
+}
+
+#services .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+#services .card {
+  padding: 2.4rem;
+  text-align: left;
+  background: white;
+  border: 0.1rem solid var(--primary-green-light);
+  border-radius: 0.6rem;
+}
+
+#services .card h3 {
+  margin-block: 1.6rem;
+}
+
+/* ====== ABOUT ===========================================*/
+
+#about {
+  text-align: left;
+  background: var(--primary-beige);
+}
+
+#about header h2 {
+  margin-bottom: 2.4rem;
+}
+
+#about .content p {
+  margin-top: 2.4rem;
+  margin-bottom: 6rem;
+}
+
+/* ====== CONTACT ===========================================*/
+
+#contact {
+  text-align: left;
+}
+
+#contact header {
+  margin-bottom: 3.2rem;
+}
+
+#contact ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 3.2rem;
+}
+
+#contact ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* ====== FOOTER ===========================================*/
+
+footer {
+  background-color: var(--primary-green);
+  padding-block: 6rem;
+
+  text-align: left;
+  color: white;
+}
+
+footer .colorlogo {
+  display: inline-block; /*display inline não aceita configurações na vertical, por isso usamo o inline block. as configurações em linha obedecerá as configurações de linha e as configurações na vertical são destravadas*/
+  margin-bottom: 2.4rem;
+}
+
+footer .colorlogo svg {
+  width: 23.6rem;
+  height: 3.1rem;
+}
+
+footer .colorlogo path {
+  fill: white;
+}
+
+footer p {
+  color: var(--primary-beige);
+  line-height: 2;
+  margin-bottom: 3.2rem;
+}
+
+footer .social-links {
+  justify-content: flex-start; /*conteudo fica no inicio da caixa*/
+}
+
+/* ====== BACK TO TOP ===========================================*/
+
+#backToTopButton {
+  position: fixed; /*permite posicionarmos o elemento*/
+  bottom: 1rem;
+  right: 2.5rem;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(100%);
+  transition: 200ms;
+}
+
+#backToTopButton.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ====== CONFIGURAÇÃO PARA DISPOSITIVOS DESKTOP ===========================================*/
+
+/*vamos usar um seletor com um tamanho mínimo que a partir daquele tamanho outras configurações seram executadas*/
+
+@media (min-width: 1024px) {
+  /*valor de 1024 veio do dev tools. tamanho de uma tela de laptop*/
+
+  /* ======  GERAL ===========================================*/
+
+  body {
+    overflow: auto;
+  }
+
+  .wrapper {
+    width: min(112rem, 100%);
+    display: grid;
+  }
+
+  section {
+    padding-block: 16rem;
+  }
+
+  section header h2 {
+    font-size: 4rem;
+    line-height: 5.2rem;
+  }
+
+  .col-a {
+    grid-area: A;
+  }
+
+  .col-b {
+    grid-area: B;
+  }
+
+  /* ======  NAVIGATION ===========================================*/
+  /*RESET - vamos refazer todas as configurações - usar o dev tools para saber quais foram ou analisar todo o arquivo CSS*/
+  /* temos que ser mais específicos do que a configuração anterior para o reset sobrepor o que foi feito antes*/
+  nav#navigation .wrapper * {
+    /* * quer dizer todos os elementos dentro de navigation*/
+    margin: 0;
+    padding: 0;
+    visibility: initial; /*initial quer dizer que será a configuração antes do CSS*/
+    display: initial;
+    opacity: initial;
+    flex-direction: initial;
+    position: initial;
+    font-size: initial;
+    transform: initial;
+    color: initial;
+    background-color: initial;
+    font-weight: initial;
+  }
+
+  nav#navigation .close-menu,
+  nav#navigation .open-menu,
+  nav#navigation .social-links {
+    display: none;
+  }
+
+  nav#navigation .menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%; /*aumento da largura da caixa dos itens do menu para conseguir o espaçamento entre eles*/
+  }
+
+  nav#navigation .menu ul:nth-child(1) {
+    display: flex;
+    gap: 3.2rem;
+  }
+
+  nav#navigation .menu ul li a {
+    color: var(--primary-green);
+    opacity: 0.7;
+  }
+
+  nav#navigation .menu a.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2.4rem;
+    border: solid 0.1rem var(--primary-green);
+    border-radius: 4rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+  }
+
+  nav#navigation.scroll ul li a {
+    color: var(--green-ligth-2);
+    opacity: 0.6;
+  }
+
+  nav#navigation.scroll .menu a.button {
+    border-color: white;
+    color: white;
+  }
+
+  /*para itens do menu ficarem em negrito quando o cursor estiver em cima*/
+  nav#navigation .menu li a:hover {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  #nav.navigation .meni li a {
+    transition: opacity 0.4s;
+  }
+
+  /*colocando a linha abaixo dos itens do menu quando o cursos estiver em cima*/
+  nav#navigation .menu li a::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background-color: var(--primary-green);
+    display: block; /*sem o display os elementos não aparecem*/
+
+    position: relative; /*para conseguir posicionar a linha*/
+    bottom: -2rem;
+
+    left: -0.5rem;
+
+    transition: width 0.2s;
+  }
+
+  nav#navigation.scroll .menu li a::after {
+    background-color: white;
+  }
+
+  nav#navigation .menu li a.active::after,
+  nav#navigation .menu li a:hover::after {
+    padding-inline: 0.8rem; /*aumentando o comprimento da linha*/
+    width: 100%;
+  }
+
+  nav#navigation.scroll .menu li a.active,
+  nav#navigation.scroll .menu li a:hover {
+    opacity: 1;
+  }
+
+  nav#navigation.scroll .menu a.button.active,
+  nav#navigation.scroll .menu a.button:hover {
+    background-color: var(--primary-green);
+    filter: brightness(1.1);
+    border: none;
+  }
+
+  nav#navigation .menu a.button.active,
+  nav#navigation .menu a.button:hover {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+  }
+
+  /* ======  HOME ===========================================*/
+
+  #home::before {
+    height: calc(96% - var(--nav-height));
+  }
+
+  #home {
+    padding-top: var(--nav-height);
+  }
+
+  #home .wrapper {
+    grid-template-columns: 60.5rem 1fr;
+    grid-template-areas:
+      'A B'
+      'C C';
+  }
+
+  #home .col-a {
+    text-align: left;
+    align-self: center; /*alinhar elementos dentro daquela região do grid*/
+  }
+
+  #home h1 {
+    font-size: 5.2rem;
+  }
+
+  #home p {
+    font-size: 1.8rem;
+  }
+
+  #home .stats {
+    grid-area: C;
+    flex-direction: row;
+    padding: 6rem;
+    gap: 0;
+  }
+
+  #home .stats .stat + .stat {
+    /*quer dizer que dentro de stats, para cada stat que tenha outro stat antes dela, aplicar as seguintes regras*/
+    border-left: 1px solid var(--primary-green);
+  }
+
+  #home .stats .stat {
+    flex: 1; /*quer dizer que cada caixa dentro do flex tem que ter a mesma largura*/
+  }
+
+  #home .button {
+    margin: 0;
+  }
+
+  #home img {
+    width: 42rem;
+  }
+
+  /* ======  SERVICES ===========================================*/
+
+  #services h2 {
+    width: 47rem;
+    margin-inline: auto;
+  }
+
+  #services .cards {
+    flex-direction: row;
+    flex-wrap: wrap; /*respeita o tamanho do card e agora precisamos definir esse tamanho*/
+  }
+
+  #services .card {
+    width: 30%;
+    flex-grow: 1; /*aumenta o tamnho dos cards até os espaços serem preenchidos*/
+    gap: 4rem;
+  }
+
+  /* ======  ABOUT ===========================================*/
+
+  #about .wrapper {
+    grid-template-columns: 48rem 1fr;
+    grid-template-areas: 'B A';
+    gap: 6.7rem;
+  }
+
+  #about .col-a {
+    align-self: center;
+  }
+
+  #about .content p {
+    margin-bottom: 0;
+  }
+
+  /* ======  CONTACT ===========================================*/
+
+  #contact .wrapper {
+    grid-template-columns: 1fr 57.5rem;
+    grid-template-areas: 'A B';
+  }
+
+  #contact h2 {
+    width: 40.4rem;
+  }
+
+  /* ====== FOOTER ===========================================*/
+
+  footer {
+    padding-block: 8rem;
+  }
+
+  footer .wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'A B';
+  }
+
+  footer p {
+    margin-bottom: 0;
+  }
+
+  footer .col-a {
+    align-self: center;
+  }
+
+  footer .col-b {
+    align-self: center;
+    justify-self: end;
+  }
+}
