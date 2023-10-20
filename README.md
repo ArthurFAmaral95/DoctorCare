@@ -13,12 +13,12 @@ This project was developed with the following technologies:
 - Git e Github
 - Figma
 
-## 💻 Projeto
+## 💻 Project
 
 DoctorCare is a mock web page for a health center.
 
-- [Acesse o projeto finalizado, online](https://arthurfamaral95.github.io/DoctorCare/)
+- [Access the final project online](https://arthurfamaral95.github.io/DoctorCare/)
 
 ## 🔖 Layout
 
-You can check the project layout through [THIS LINK](<https://www.figma.com/file/2Ye05RRL036sFbzvgnrVLA/DoctorCare-(Community)-(Copy)?node-id=1730%3A1076&mode=dev>). It is necessary to have a [Figma](https://figma.com) account to acess it.
+You can check the project layout through [THIS LINK](<https://www.figma.com/file/2Ye05RRL036sFbzvgnrVLA/DoctorCare-(Community)-(Copy)?node-id=1730%3A1076&mode=dev>). It is necessary to have a [Figma](https://figma.com) account to access it.
