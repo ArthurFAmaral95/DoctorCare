@@ -1,4 +1,4 @@
-<h1 align="center"> Beauty Salon </h1>
+<h1 align="center"> DoctorCare </h1>
 
 <p align="center">
   <img alt="projeto Beauty Salon" src="./public/Landing-page-desktop.png" width="100%">
